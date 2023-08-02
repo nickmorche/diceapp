@@ -13,9 +13,9 @@ import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
-    private List<String> dataList;
+    private List<Integer> dataList;
 
-    public MyAdapter(List<String> dataList) {
+    public MyAdapter(List<Integer> dataList) {
         this.dataList = dataList;
     }
 
@@ -28,12 +28,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String data = dataList.get(position);
-//        holder.textViewItem.setText(data);
-        if(data == "d10_1"){
-            holder.imageViewItem.setImageResource(R.drawable.d10_1);
-        }
-
+        Integer data = dataList.get(position);
+        holder.imageViewItem.setImageResource(data);
     }
 
     @Override

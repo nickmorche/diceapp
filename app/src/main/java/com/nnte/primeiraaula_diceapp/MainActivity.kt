@@ -31,9 +31,6 @@ class MainActivity : AppCompatActivity() {
          * Cria uma variável do tipo TextView e Encontra o objeto no xml
          * @variavel R que porra é isso? Aparentenmente é onde tá tudo
          * @method findViewById tenta encontrar um objeto com esse id
-         *
-         * Obs: quando o tipo da variável fica vermelho, clique em cima dele
-         * e clique em Import
          */
         val botao: Button = findViewById(R.id.botao_maluco)
         val imagemDoDado: ImageView = findViewById(R.id.imagem)
@@ -88,11 +85,11 @@ class MainActivity : AppCompatActivity() {
          * @var dataList é a lista de dados que envia para o adaptador
          */
         // Inicializar a lista de dados
-        var dataList: ArrayList<String>
+        var dataList: ArrayList<Int>
         dataList = ArrayList()
-        dataList.add("Item 1")
-        dataList.add("Item 2")
-        dataList.add("Item 3")
+        for(x:Int in historico){
+            dataList.add(x)
+        }
 
         // Inicializar a RecyclerView e configurar o LayoutManager
         var recycleViewModal: RecyclerView = modalDialog.findViewById(R.id.recyclerViewModal)
@@ -285,7 +282,7 @@ class MainActivity : AppCompatActivity() {
             }.start() // Começa a animação com base nesses parâmetros
 
             // Armazena o dado rolado no histórico
-            historico.add(idResourceImage)
+            historico.add(0, idResourceImage)
             editor.putString("historico", historico.toString())
             editor.apply()
         }
