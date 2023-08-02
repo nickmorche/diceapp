@@ -8,13 +8,16 @@
     tools:context=".MainActivity">
 
     <!-- CHIP GROUP PARA ESCOLHA DE DADOS -->
+
+
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chip_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginBottom="58dp"
         app:checkedChip="@id/chip_d6"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/imagem"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:singleSelection="true">
@@ -69,7 +72,6 @@
 
     </com.google.android.material.chip.ChipGroup>
 
-
     <TextView
         android:id="@+id/textoHelloWorld"
         android:layout_width="wrap_content"
@@ -78,14 +80,14 @@
         android:shadowRadius="100"
         android:text="Role o dado"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="#33E60B"
+        android:textColor="#FFEB3B"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.658"
+        app:layout_constraintVertical_bias="0.71"
         tools:shadowDx="15"
         tools:shadowRadius="25" />
 
@@ -93,24 +95,42 @@
         android:id="@+id/botao_maluco"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="504dp"
+        android:layout_marginTop="56dp"
+        android:background="#FFEB3B"
         android:text="@string/rolar_dado"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textoHelloWorld" />
+
 
     <ImageView
         android:id="@+id/imagem"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginVertical="16dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="8dp"
         android:src="@drawable/d6_1"
         app:layout_constraintBottom_toTopOf="@id/textoHelloWorld"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/openModalButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/cardview_light_background"
+        android:text="Histórico"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/botao_maluco"
+        app:layout_constraintVertical_bias="0.678" />
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

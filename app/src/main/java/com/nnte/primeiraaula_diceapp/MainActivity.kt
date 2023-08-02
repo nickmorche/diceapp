@@ -1,20 +1,31 @@
 package com.nnte.primeiraaula_diceapp
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Dialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.ChipGroup
+
 
 class MainActivity : AppCompatActivity() {
 
+    var historico = mutableListOf<Int>()
     var isAnimating = false // Indica se está rolando animação
+    private val modalDialog: Dialog? = null // Dialogo modal
+    private lateinit var sharedPreferences: SharedPreferences // Armazena as preferências e configuraç]ões do usuário
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Cria os componentes da tela.
         setContentView(R.layout.activity_main)
+
+        sharedPreferences = getSharedPreferences("historico_de_dados", Context.MODE_PRIVATE)
 
         /**
          * Cria uma variável do tipo TextView e Encontra o objeto no xml
@@ -26,6 +37,7 @@ class MainActivity : AppCompatActivity() {
          */
         val botao: Button = findViewById(R.id.botao_maluco)
         val imagemDoDado: ImageView = findViewById(R.id.imagem)
+        val openModalBotao: Button = findViewById(R.id.openModalButton)
 
 
         // Armazena o chipgroup em uma variável
@@ -54,10 +66,50 @@ class MainActivity : AppCompatActivity() {
             jogarDado(imagemDoDado, chipGroup)
         }
 
+        openModalBotao.setOnClickListener{
+            showCustomModal()
+        }
 
 
+    }
 
+    private fun showCustomModal(){
+        val modalDialog = Dialog(this@MainActivity)
+        modalDialog.setContentView(R.layout.modal_layout)
 
+        // AVISO: é necessário usar o findViewById pelo @var modalDialog, para pegar da tela correta
+        var titleTextView:TextView = modalDialog.findViewById(R.id.titleTextView)
+        titleTextView.text = "Título do Modal"
+
+        /**
+         * Cria a lista para o ReciclerView do modal
+         * @var recycleViewModal é a lista
+         * @var adapter é a classe que adapta os itens na lista
+         * @var dataList é a lista de dados que envia para o adaptador
+         */
+        // Inicializar a lista de dados
+        var dataList: ArrayList<String>
+        dataList = ArrayList()
+        dataList.add("Item 1")
+        dataList.add("Item 2")
+        dataList.add("Item 3")
+
+        // Inicializar a RecyclerView e configurar o LayoutManager
+        var recycleViewModal: RecyclerView = modalDialog.findViewById(R.id.recyclerViewModal)
+        recycleViewModal.layoutManager = LinearLayoutManager(this)
+
+        // Inicializar o adaptador e atribuí-lo à RecyclerView
+        var adapter: MyAdapter
+        adapter = MyAdapter(dataList)
+        recycleViewModal.adapter = adapter // Configure o RecyclerView com o adaptador
+
+        var closeButton: Button = modalDialog.findViewById(R.id.closeButton)
+
+        closeButton.setOnClickListener{
+            modalDialog.dismiss();
+        }
+
+        modalDialog.show();
     }
 
     private fun jogarDado(imagemDoDado: ImageView, chipGroup: ChipGroup){
@@ -158,7 +210,6 @@ class MainActivity : AppCompatActivity() {
 
                 mudaImagem(facesDoDadoD4[faceSorteada-1], imagemDoDado)
 
-
             }
             R.id.chip_d6 -> {
                 faceSorteada = (1..6).random()
@@ -215,6 +266,8 @@ class MainActivity : AppCompatActivity() {
      * Realiza uma animação de rolagem de dados
      */
     private fun mudaImagem(idResourceImage: Int, imagemDoDado: ImageView){
+        val editor = sharedPreferences.edit()
+
         // Se não está animando, anima
         if(!isAnimating){
             isAnimating = true
@@ -230,6 +283,11 @@ class MainActivity : AppCompatActivity() {
                 imagemDoDado.setImageResource(idResourceImage) //Afeta a imagem
                 isAnimating = false
             }.start() // Começa a animação com base nesses parâmetros
+
+            // Armazena o dado rolado no histórico
+            historico.add(idResourceImage)
+            editor.putString("historico", historico.toString())
+            editor.apply()
         }
     }
 

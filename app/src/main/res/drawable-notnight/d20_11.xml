@@ -8,10 +8,10 @@
       android:fillColor="#083590"/>
   <path
       android:pathData="M779.3,1213.5l104.2,-0l-0,-289.8l-97,22.7l-0,-79.5l97.6,-22.1l90,-0l-0,368.7l104.2,-0l-0,77.7l-299.1,0l-0,-77.7Z"
-      android:fillColor="#0f0"/>
+      android:fillColor="#FFEB3B"/>
   <path
       android:pathData="M1097.7,1213.5l104.2,-0l-0,-289.8l-97,22.7l0,-79.5l97.6,-22.1l90,-0l-0,368.7l104.2,-0l-0,77.7l-299.1,0l-0,-77.7Z"
-      android:fillColor="#0f0"/>
+      android:fillColor="#FFEB3B"/>
   <path
       android:pathData="M1065.2,2043.7l630.7,-623.8l-1261.4,0l630.7,623.8Z"
       android:fillColor="#002570"/>
